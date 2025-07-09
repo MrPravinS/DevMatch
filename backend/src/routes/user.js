@@ -57,6 +57,11 @@ userRouter.get("/feed", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
 
+    const page = parseInt(req.query.page) || 1
+    let limit = parseInt(req.query.limit) || 10
+    limit = limit > 50 ? 50 : limit
+    let skip = (page - 1) * limit
+
     const connectionReq = await ConnectionRequestModel.find({
       $or: [
         {
@@ -78,8 +83,8 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         { _id: { $nin: Array.from(hideUserFromFeed)}},
         {_id: { $ne: loggedInUser._id },},
       ], // check not in the hidde users
-    }).select(USER_SAFE_DATA);
-    return res.send(users)
+    }).select(USER_SAFE_DATA).skip(skip).limit(limit);
+    return res.json({data:users})
   } catch (error) {
     return res.status(400).json({
       message: "Failed to get feed of users.",
