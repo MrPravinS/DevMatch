@@ -3,7 +3,7 @@ import { useState } from "react";
 import {Link} from "react-router"
 import {motion} from "framer-motion"
 export const SignIn = () => {
- const [email, setEmail] = useState("")
+ const [emailId, setEmailId] = useState("")
  const [password, setPassword] = useState("")
 
 
@@ -11,12 +11,13 @@ export const SignIn = () => {
     try {
         const res = await axios.post("http://localhost:7777/login",{
             password,
-            email
+            emailId
         },{
             withCredentials:true
         })
 
-
+      console.log(res);
+      
     } catch (error) {
         console.log("Sign In failed.. " , error);
         
@@ -35,8 +36,8 @@ export const SignIn = () => {
            
           <label className="floating-label m-2">
             <input
-             value={email}
-             onChange={(e) => setEmail(e.target.value)}
+             value={emailId}
+             onChange={(e) => setEmailId(e.target.value)}
               type="text"
               placeholder="Email"
               className="input input-md"

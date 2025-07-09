@@ -27,7 +27,7 @@ authRouter.post("/signup", async (req, res) => {
 
     await user.save();
 
-    return res.send("User Added Successfully");
+    return res.status(201).json({message:"User Added Successfully", user});
   } catch (error) {
    return res.status(500).send("ERROR : " + error.message);
   }
@@ -54,7 +54,7 @@ authRouter.post("/login", async (req, res) => {
       // add the token to cookie and send the response back to the user
 
       res.cookie("token", token);
-      return res.send("Login Successfull");
+      return res.status(200).json({message:"Login Successfull", user});
     } else {
       throw new Error("Invalid Credentials");
     }

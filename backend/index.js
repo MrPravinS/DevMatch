@@ -8,8 +8,10 @@ const env = require("dotenv")
 const app = express();
 app.use(cookieParser()); // use for read a cookie
 app.use(express.json()); // help to read json data
-app.use(cors(
-))
+app.use(cors({
+  origin:"http://localhost:5173",
+  credentials:true
+}))
 env.config()
 
 const authRouter = require('./src/routes/auth')

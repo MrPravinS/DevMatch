@@ -2,24 +2,33 @@ import { useState } from "react";
 import {Link} from "react-router"
 import axios from "axios"
 import {motion} from "framer-motion"
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 export const SignUp = () => {
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [emailId, setEmailId] = useState("")
   const [password, setPassword] = useState("")
+
+  const disPatch = useDispatch()
 
   const handleSignUp = async(e) => {
     e.preventDefault()
 
     try {
-      const res = axios.post("http://localhost:7777",{
-        email,
+      const res = await axios.post("http://localhost:7777/signup",{
+        firstName,
+        lastName,
+        emailId,
         password,
-        username
+        
       },
       {
         withCredentials:true
       }
     )
+     console.log(res);
+    disPatch(addUser(res.data))
       
     } catch (error) {
       console.log("Error while Sign up", error);
@@ -40,18 +49,28 @@ export const SignUp = () => {
 
            <label className="floating-label m-2">
             <input
-             value={username}
-             onChange={(e) => setUsername(e.target.value)}
+             value={firstName}
+             onChange={(e) => setFirstName(e.target.value)}
               type="text"
-              placeholder="username"
+              placeholder="First Name"
               className="input input-md"
             />
-            <span>username</span>
+            <span>First Name</span>
           </label>
           <label className="floating-label m-2">
             <input
-            value={email}
-             onChange={(e) => setEmail(e.target.value)}
+             value={lastName}
+             onChange={(e) => setLastName(e.target.value)}
+              type="text"
+              placeholder="Last Name"
+              className="input input-md"
+            />
+            <span>Last Name</span>
+          </label>
+          <label className="floating-label m-2">
+            <input
+            value={emailId}
+             onChange={(e) => setEmailId(e.target.value)}
               type="text"
               placeholder="Email"
               className="input input-md"

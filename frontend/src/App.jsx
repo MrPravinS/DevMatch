@@ -3,10 +3,14 @@ import './App.css'
 import { Body } from "../components/Body";
 import { SignIn } from "../components/SignIn";
 import { SignUp } from "../components/SignUp";
+import {Provider} from "react-redux"
+import { appStore } from "../utils/appStore";
 
 function App() {
 
   return (
+    <Provider store={appStore}>
+
    <BrowserRouter>
    <Routes>
     <Route path="/" element={<Body/>}>
@@ -14,8 +18,10 @@ function App() {
       <Route path="/signin" element={<SignIn/>}/>
       
     </Route>
+   
    </Routes>
    </BrowserRouter>
+    </Provider>
   )
 }
 
