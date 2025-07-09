@@ -1,0 +1,30 @@
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+
+const userAuth = async (req, res, next) => {
+  console.log("userAuth middleware running. typeof next:", typeof next);
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      throw new Error("Token is not valid!");
+    }
+
+    const decodeObj = await jwt.verify(token, "DEV@Tinder123");
+    const { _id } = decodeObj;
+
+    const user = await User.findById(_id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    req.user = user;
+    return next();
+  } catch (error) {
+    console.error("Authentication error:", error.stack);
+    return res.status(400).json({
+      message: "ERROR while sending request: " + error.message,
+    });
+  }
+};
+
+module.exports = { userAuth };
