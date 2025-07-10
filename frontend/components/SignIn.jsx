@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import {Link} from "react-router"
+import {Link, useNavigate} from "react-router"
 import {motion} from "framer-motion"
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 export const SignIn = () => {
  const [emailId, setEmailId] = useState("")
  const [password, setPassword] = useState("")
 
-
+const dispatch = useDispatch()
+const navigate = useNavigate()
  const handleSignIn = async() => {
     try {
         const res = await axios.post("http://localhost:7777/login",{
@@ -17,6 +20,8 @@ export const SignIn = () => {
         })
 
       console.log(res);
+      dispatch(addUser(res.data))
+      navigate("/feed")
       
     } catch (error) {
         console.log("Sign In failed.. " , error);

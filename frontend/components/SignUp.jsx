@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Link} from "react-router"
+import {Link, useNavigate} from "react-router"
 import axios from "axios"
 import {motion} from "framer-motion"
 import { useDispatch } from "react-redux";
@@ -11,6 +11,7 @@ export const SignUp = () => {
   const [password, setPassword] = useState("")
 
   const disPatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSignUp = async(e) => {
     e.preventDefault()
@@ -29,6 +30,7 @@ export const SignUp = () => {
     )
      console.log(res);
     disPatch(addUser(res.data))
+    navigate("/feed")
       
     } catch (error) {
       console.log("Error while Sign up", error);
