@@ -63,7 +63,7 @@ const navigate = useNavigate()
 
           <div className=" card-actions justify-center m-2">
             <button className="btn btn-primary  w-full items-center" onClick={handleSignIn}>Sign In</button>
-            <p className="font-semibold text-center mt-2">Don't have an account ?  <Link  className="hover:underline text-blue-300" to="/">Sign Up</Link></p>
+            <p className="font-semibold text-center mt-2">Don't have an account ?  <Link  className="hover:underline text-blue-300" to="/signup">Sign Up</Link></p>
           </div>
         </div>
       </div>

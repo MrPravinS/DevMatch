@@ -93,7 +93,7 @@ export const SignUp = () => {
 
           <div className=" card-actions justify-center m-2">
             <button className="btn btn-primary  w-full items-center" onClick={handleSignUp}>Sign Up</button>
-            <p className="font-semibold text-center mt-2" >Already have an account ?  <Link  className="hover:underline text-blue-300" to="/signin">Sign In</Link></p>
+            <p className="font-semibold text-center mt-2" >Already have an account ?  <Link  className="hover:underline text-blue-300" to="/login">Sign In</Link></p>
           </div>
         </div>
       </div>
