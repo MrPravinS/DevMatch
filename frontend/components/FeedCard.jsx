@@ -3,7 +3,7 @@ export const FeedCard = ({ user }) => {
     return <div>No feed item</div>;
   }
   const { firstName, about, lastName, photoUrl, age, gender } = user;
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="card bg-base-300 w-87 shadow-sm">

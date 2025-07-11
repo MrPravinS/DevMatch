@@ -8,7 +8,6 @@ const userSchema = mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      lowercase: true,
     },
     lastName: {
       type: String,
@@ -37,7 +36,7 @@ const userSchema = mongoose.Schema(
       type: String,
       validate(value) {
         // only validate for new user not existing user
-        if (!["male", "female", "others"].includes(value)) {
+        if (!["Male", "Female", "Others"].includes(value)) {
           throw new Error();
         }
       },
@@ -49,7 +48,7 @@ const userSchema = mongoose.Schema(
 
     about: {
       type: String,
-      default: "This is default about",
+      default: "This is default about ",
     },
     skills: {
       type: [String],
