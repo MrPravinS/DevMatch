@@ -44,11 +44,12 @@ const userSchema = mongoose.Schema(
     },
     photoUrl: {
       type: String,
+      default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReNr2tV6uuvmORZKBUeu2Oxf9iH-wdYouxVw&s"
     },
 
     about: {
       type: String,
-      default: "This is default ",
+      default: "This is default about",
     },
     skills: {
       type: [String],

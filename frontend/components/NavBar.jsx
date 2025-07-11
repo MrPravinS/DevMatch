@@ -28,7 +28,7 @@ export const NavBar = () => {
           to={"/"}
           className="btn btn-ghost text-xl hover:bg-gray-800 transition duration-150 ease-in-out "
         >
-          💻 DevTinder
+          💻 DevMatch
         </Link>
       </div>
       {user && (

@@ -5,8 +5,8 @@ import {motion} from "framer-motion"
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 export const SignIn = () => {
- const [emailId, setEmailId] = useState("")
- const [password, setPassword] = useState("")
+ const [emailId, setEmailId] = useState("dhoni@gmail.com")
+ const [password, setPassword] = useState("Dhoni@12345")
 
 const dispatch = useDispatch()
 const navigate = useNavigate()
