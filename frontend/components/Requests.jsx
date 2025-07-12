@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { getConnections } from "../utils/connectionSlice";
 
-export const Connections = () => {
-    const connections = useSelector(store => store.connections)
+export const Requests = () => {
+  const requests = useSelector((store) => store.connections);
+//   console.log(connections);
+
   const dispatch = useDispatch();
-  const fetchConnections = async () => {
+  const fetchRequests = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:7777/user/connections",
+        "http://localhost:7777/user/request/recieved",
         { withCredentials: true }
       );
       dispatch(getConnections(res?.data?.data));
@@ -19,16 +21,16 @@ export const Connections = () => {
   };
 
   useEffect(() => {
-    fetchConnections();
+    fetchRequests();
   }, []);
 
-  if (!connections) return;
-  if (connections.length === 0) return <h1 className="text-center text-2xl font-bold  m-2">No Connections </h1>;
+  if (!requests) return;
+  if (requests.length === 0) return <h1 className="text-center text-2xl font-bold  m-2">No Connections Request</h1>;
   return (
     <div className="flex flex-col justify-center items-center text-center m-6">
-  <h1 className="text-2xl font-bold mb-4">Connections</h1>
-  {connections.map((users) => {
-    const { firstName, lastName, photoUrl, about, age, gender } = users;
+  <h1 className="text-2xl font-bold mb-4">Connections Requests</h1>
+  {requests.map((users) => {
+    const { firstName, lastName, photoUrl, about, age, gender } = users.fromUserId;
     return (
       <div
         key={users._id}
@@ -47,7 +49,10 @@ export const Connections = () => {
             <span>|</span>
             <span>Gender: <span className="font-medium text-gray-700">{gender}</span></span>
           </div>
-          
+          <div className="flex gap-3">
+            <button className="py-1 px-4 rounded-full bg-primary text-white shadow hover:bg-primary-focus transition">Accept</button>
+            <button className="py-1 px-4 rounded-full bg-red-500 text-white shadow hover:bg-red-600 transition">Reject</button>
+          </div>
         </div>
       </div>
     );

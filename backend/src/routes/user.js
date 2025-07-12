@@ -26,7 +26,7 @@ userRouter.get("/user/request/recieved", userAuth, async (req, res) => {
   }
 });
 
-userRouter.get("user/connections", userAuth, async (req, res) => {
+userRouter.get("/user/connections", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
     const connectionReq = await ConnectionRequestModel.find({
@@ -42,7 +42,7 @@ userRouter.get("user/connections", userAuth, async (req, res) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
         return row.toUserId;
       }
-      return fromUserId;
+      return row.fromUserId;
     });
     return res.json({ data });
   } catch (error) {
