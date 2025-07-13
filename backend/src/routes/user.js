@@ -35,13 +35,14 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
         { fromUserId: loggedInUser._id, status: "accepted" },
       ],
     })
-      .populate("fromUserId", USER_SAFE_DATA)
-      .populate("toUserId", USER_SAFE_DATA);
+      .populate("fromUserId", "firstName lastName age gender photoUrl about email")
+      .populate("toUserId", "firstName lastName age gender photoUrl about email");
 
     const data = connectionReq.map((row) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
         return row.toUserId;
       }
+      
       return row.fromUserId;
     });
     return res.json({ data });

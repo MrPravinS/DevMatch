@@ -19,7 +19,6 @@ const navigate = useNavigate()
             withCredentials:true
         })
 
-      console.log(res);
       dispatch(addUser(res.data))
       navigate("/feed")
       

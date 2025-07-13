@@ -1,22 +1,44 @@
-export const FeedCard = ({ user }) => {
-  if (!user) {
-    return <div>No feed item</div>;
-  }
-  const { firstName, about, lastName, photoUrl, age, gender } = user;
-  // console.log(user);
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../utils/feedSlice";
 
+export const FeedCard = ({ user }) => {
+  const dispatch = useDispatch()
+  if (!user) {
+    return (
+      <div className="flex justify-center text-2xl font-bold">No Users</div>
+    );
+  }
+  const { _id, firstName, about, lastName, photoUrl, age, gender } = user || "";
+  console.log(user);
+
+  const handleRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:7777/request/send/${status}/${_id}`,
+        {},
+        { withCredentials: true }
+      );
+      console.log(res.data.data);
+      dispatch(removeFeed(_id))
+    } catch (error) {
+      console.error("Error while sending request", error);
+    }
+  };
   return (
     <div className="card bg-base-300 w-87 shadow-sm">
       <figure className="w-full">
         <img className="object-fit w-full" src={photoUrl} alt="img" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title  justify-center">{firstName + " " + lastName} </h2>
+        <h2 className="card-title  justify-center">
+          {firstName + " " + lastName}{" "}
+        </h2>
         {age && gender && <p className="text-center"> {gender + " " + age}</p>}
         <p className="text-center p-2">{about}</p>
         <div className="card-actions justify-center">
-          <button className="btn btn-accent ">Interested</button>
-          <button className="btn btn-primary">Ignored</button>
+          <button className="btn btn-accent " onClick={()=>handleRequest("interested", _id)}>Interested</button>
+          <button className="btn btn-primary" onClick={()=>handleRequest("ignored", _id)}>Ignored</button>
         </div>
       </div>
     </div>

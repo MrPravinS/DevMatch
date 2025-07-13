@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getConnections } from "../utils/connectionSlice";
+import { removeRequest } from "../utils/requestSlice";
 
 export const Requests = () => {
   const requests = useSelector((store) => store.connections);
-//   console.log(connections);
 
   const dispatch = useDispatch();
   const fetchRequests = async () => {
@@ -20,6 +20,18 @@ export const Requests = () => {
     }
   };
 
+
+  const reviewRequest = async(status, _id) => {
+    try {
+      
+      const res = await axios.post(`http://localhost:7777/request/reviews/${status}/${_id}`, {},{withCredentials:true})
+
+       dispatch(removeRequest(_id))
+    } catch (error) {
+      console.error("Error while request review ", error.message);
+      
+    }
+  }
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -30,7 +42,8 @@ export const Requests = () => {
     <div className="flex flex-col justify-center items-center text-center m-6">
   <h1 className="text-2xl font-bold mb-4">Connections Requests</h1>
   {requests.map((users) => {
-    const { firstName, lastName, photoUrl, about, age, gender } = users.fromUserId;
+    const { firstName, lastName, photoUrl, about, age, gender , _id} = users.fromUserId  || ""
+;
     return (
       <div
         key={users._id}
@@ -50,8 +63,8 @@ export const Requests = () => {
             <span>Gender: <span className="font-medium text-gray-700">{gender}</span></span>
           </div>
           <div className="flex gap-3">
-            <button className="py-1 px-4 rounded-full bg-primary text-white shadow hover:bg-primary-focus transition">Accept</button>
-            <button className="py-1 px-4 rounded-full bg-red-500 text-white shadow hover:bg-red-600 transition">Reject</button>
+            <button className="py-1 px-4 rounded-full bg-primary text-white shadow hover:bg-primary-focus transition cursor-pointer" onClick={()=>reviewRequest("accepted", users._id)}>Accept</button>
+            <button className="py-1 px-4 rounded-full bg-red-500 text-white shadow hover:bg-red-600 transition cursor-pointer" onClick={()=>reviewRequest("rejected", users._id)}>Reject</button>
           </div>
         </div>
       </div>
