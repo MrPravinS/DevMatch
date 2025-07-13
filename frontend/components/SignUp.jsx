@@ -28,9 +28,9 @@ export const SignUp = () => {
         withCredentials:true
       }
     )
-     console.log(res);
-    disPatch(addUser(res.data))
-    navigate("/feed")
+     console.log(res.data.savedUser);
+    disPatch(addUser(res.data.savedUser))
+    navigate("/profile")
       
     } catch (error) {
       console.log("Error while Sign up", error);

@@ -35,7 +35,7 @@ export const NavBar = () => {
         <div className="flex gap-2">
           <span className="p-2 pr-0 text-lg font-semibold  text-white">
             {" "}
-            welcome {user.firstName}
+            Welcome! {user.firstName} 
           </span>
 
           <div className="dropdown dropdown-end mx-5">
