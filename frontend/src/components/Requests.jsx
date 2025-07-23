@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getConnections } from "../utils/connectionSlice";
-import { removeRequest } from "../utils/requestSlice";
+import { getConnections } from "../../utils/connectionSlice";
+import { removeRequest } from "../../utils/requestSlice";
+import { motion } from "framer-motion";
 
 export const Requests = () => {
   const requests = useSelector((store) => store.connections);
@@ -36,10 +37,14 @@ export const Requests = () => {
     fetchRequests();
   }, []);
 
-  if (!requests) return;
+  if (!requests) return   <span className="loading loading-spinner loading-xl "></span>;
   if (requests.length === 0) return <h1 className="text-center text-2xl font-bold  m-2">No Connections Request</h1>;
   return (
-    <div className="flex flex-col justify-center items-center text-center m-6">
+    <motion.div 
+    initial={{opacity:0, y:60}}
+     animate={{opacity:1, y:0}}
+     transition={{duration:0.8}}
+    className="flex flex-col justify-center items-center text-center m-6">
   <h1 className="text-2xl font-bold mb-4">Connections Requests</h1>
   {requests.map((users) => {
     const { firstName, lastName, photoUrl, about, age, gender , _id} = users.fromUserId  || ""
@@ -70,6 +75,6 @@ export const Requests = () => {
       </div>
     );
   })}
-</div>
+</motion.div>
   );
 };

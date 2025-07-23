@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { getConnections } from "../utils/connectionSlice";
+import { getConnections } from "../../utils/connectionSlice";
+import { motion } from "framer-motion";
 
 export const Connections = () => {
     const connections = useSelector(store => store.connections)
@@ -22,10 +23,14 @@ export const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return;
+  if (!connections) return  <span className="loading loading-spinner loading-xl "></span>;
   if (connections.length === 0) return <h1 className="text-center text-2xl font-bold  m-2">No Connections </h1>;
   return (
-    <div className="flex flex-col justify-center items-center text-center m-6">
+    <motion.div 
+    initial={{opacity:0, y:60}}
+     animate={{opacity:1, y:0}}
+     transition={{duration:0.8}}
+    className="flex flex-col justify-center items-center text-center m-6">
   <h1 className="text-2xl font-bold mb-4">Connections</h1>
   {connections.map((users) => {
     const { firstName, lastName, photoUrl, about, age, gender } = users;
@@ -43,15 +48,15 @@ export const Connections = () => {
           <div className="font-semibold text-lg text-gray-200 ">{firstName} {lastName}</div>
           <div className="text-sm text-gray-300 mb-2">{about}</div>
           <div className="flex gap-4 mb-4 text-xs text-gray-400">
-            <span>Age: <span className="font-medium text-gray-700">{age}</span></span>
+            <span className="font-medium text-gray-300">Age: <span className="font-medium text-gray-300">{age}</span></span>
             <span>|</span>
-            <span>Gender: <span className="font-medium text-gray-700">{gender}</span></span>
+            <span className="font-medium text-gray-300">Gender: <span className="font-medium text-gray-300">{gender}</span></span>
           </div>
           
         </div>
       </div>
     );
   })}
-</div>
+</motion.div>
   );
 };

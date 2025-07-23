@@ -5,7 +5,7 @@ import { Footer } from "./Footer";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 
 
 
@@ -25,18 +25,22 @@ export const Body = () => {
 
         dispatch(addUser(res.data))
 
-      } catch (error) {
-        if(error.response.status === 401){
-
-            navigate("/login")
+      } catch (err) {
+        if (err.response && err.response.status === 401) {
+          // Optionally clear state, show a message, etc.
+        //   navigate("/login");
+        } else {
+          // Handle other errors
+          console.error(err);
         }
-        console.log("Error in body Components", error);
-        
       }
     }
 
     useEffect(()=>{
-        fetchUser()
+        
+    
+  
+  fetchUser();
     },[])
     return (
         <div>

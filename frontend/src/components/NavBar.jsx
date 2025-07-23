@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router";
-import { removeUser } from "../utils/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { removeUser } from "../../utils/userSlice";
 
 export const NavBar = () => {
   const user = useSelector((store) => store.user);
-  const disPatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
@@ -15,8 +15,8 @@ export const NavBar = () => {
         {},
         { withCredentials: true }
       );
-      disPatch(removeUser())
-      navigate("/login")
+      dispatch(removeUser());
+      navigate("/login");
     } catch (error) {
       console.error("Error while logout", error);
     }
@@ -25,17 +25,16 @@ export const NavBar = () => {
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
         <Link
-          to={"/"}
+          to={"/feed"}
           className="btn btn-ghost text-xl hover:bg-gray-800 transition duration-150 ease-in-out "
         >
           💻 DevMatch
         </Link>
       </div>
-      {user && (
+      {user && user.firstName && (
         <div className="flex gap-2">
           <span className="p-2 pr-0 text-lg font-semibold  text-white">
-            {" "}
-            Welcome! {user.firstName} 
+            Welcome! {user.firstName}
           </span>
 
           <div className="dropdown dropdown-end mx-5">
@@ -71,7 +70,7 @@ export const NavBar = () => {
                 <Link to="/requests">Requests</Link>
               </li>
               <li>
-                <a onClick={handleLogOut}>Logout</a>
+                <button onClick={handleLogOut} className="btn btn-link p-0 m-0 text-left">Logout</button>
               </li>
             </ul>
           </div>

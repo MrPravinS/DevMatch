@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router"
 import axios from "axios"
 import {motion} from "framer-motion"
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 export const SignUp = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")

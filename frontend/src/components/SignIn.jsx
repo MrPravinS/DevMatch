@@ -3,7 +3,7 @@ import { useState } from "react";
 import {Link, useNavigate} from "react-router"
 import {motion} from "framer-motion"
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 export const SignIn = () => {
  const [emailId, setEmailId] = useState("")
  const [password, setPassword] = useState("")

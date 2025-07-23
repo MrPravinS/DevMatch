@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { removeFeed } from "../utils/feedSlice";
+import { removeFeed } from "../../utils/feedSlice";
+import {motion } from "framer-motion"
 
 export const FeedCard = ({ user }) => {
   const dispatch = useDispatch()
   if (!user) {
     return (
-      <div className="flex justify-center text-2xl font-bold">No Users</div>
+      <span className="loading loading-spinner loading-xl "></span>
     );
   }
   const { _id, firstName, about, lastName, photoUrl, age, gender } = user || "";
@@ -26,7 +27,11 @@ export const FeedCard = ({ user }) => {
     }
   };
   return (
-    <div className="card bg-base-300 w-87 shadow-sm">
+    <motion.div
+     initial={{opacity:0, y:60}}
+     animate={{opacity:1, y:0}}
+     transition={{duration:0.8}}
+     className="card bg-base-300 w-87 shadow-sm">
       <figure className="w-full">
         <img className="object-fit w-full" src={photoUrl} alt="img" />
       </figure>
@@ -41,6 +46,6 @@ export const FeedCard = ({ user }) => {
           <button className="btn btn-primary" onClick={()=>handleRequest("ignored", _id)}>Ignored</button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

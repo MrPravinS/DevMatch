@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { FeedCard } from "./FeedCard";
 import axios from "axios";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 
 export const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -111,16 +111,16 @@ export const EditProfile = ({ user }) => {
                   />
                   <span>Age</span>
                 </label>
-                <label className="floating-label m-2">
-                  <input
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    type="text"
-                    placeholder="gender"
-                    className="input input-md"
-                  />
-                  <span>Gender</span>
-                </label>
+
+                <select
+                value={gender}
+                onChange={(e)=>setGender(e.target.value)}
+                 defaultValue="Pick a color" className="select m-2">
+                  <option disabled={true}>Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
 
                 <label className="floating-label m-2">
                   {/* <input
@@ -129,11 +129,13 @@ export const EditProfile = ({ user }) => {
                     className="input input-md"
                   />
                   <span>About</span> */}
-                  <textarea 
-                  value={about}
+                  <textarea
+                    value={about}
                     onChange={(e) => setAbout(e.target.value)}
                     type="text"
-                  className=" flex flex-wrap  textarea" placeholder="About"></textarea>
+                    className=" flex flex-wrap  textarea"
+                    placeholder="About"
+                  ></textarea>
                 </label>
                 <div className=" card-actions justify-center m-2">
                   <button

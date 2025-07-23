@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addFeed } from "../utils/feedSlice";
+import { addFeed } from "../../utils/feedSlice";
 import { useEffect } from "react";
 import { FeedCard } from "./FeedCard";
 
