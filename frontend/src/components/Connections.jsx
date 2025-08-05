@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getConnections } from "../../utils/connectionSlice";
+import {Link} from "react-router-dom"
 import { motion } from "framer-motion";
 
 export const Connections = () => {
@@ -33,7 +34,7 @@ export const Connections = () => {
     className="flex flex-col justify-center items-center text-center m-6">
   <h1 className="text-2xl font-bold mb-4">Connections</h1>
   {connections.map((users) => {
-    const { firstName, lastName, photoUrl, about, age, gender } = users;
+    const {_id, firstName, lastName, photoUrl, about, age, gender } = users;
     return (
       <div
         key={users._id}
@@ -54,6 +55,7 @@ export const Connections = () => {
           </div>
           
         </div>
+        <Link to={`/chat/${_id}`}><button className="bg-blue-500 px-3 py-2 rounded-lg text-xl font-bold cursor-pointer hover:bg-blue-600 transition duration-150">Chat</button></Link>
       </div>
     );
   })}
