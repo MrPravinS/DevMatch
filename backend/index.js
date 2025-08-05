@@ -4,6 +4,7 @@ const connectDB = require("./src/config/database")
 const cookieParser = require("cookie-parser");
 const cors = require("cors")
 const env = require("dotenv")
+const http = require("http")
 
 const app = express();
 app.use(cookieParser()); // use for read a cookie
@@ -14,10 +15,16 @@ app.use(cors({
 }))
 env.config()
 
+const server = http.createServer(app);
+initSocketIo(server);
+
+
 const authRouter = require('./src/routes/auth')
 const profileRouter = require("./src/routes/profile")
 const requestRouter = require("./src/routes/request");
 const { userRouter } = require("./src/routes/user");
+const { Socket } = require("dgram");
+const { default: initSocketIo } = require("./src/utils/socketIo");
 
 app.use("/",authRouter)  // check the all routes in authROuter
 app.use("/",profileRouter)
@@ -26,7 +33,7 @@ app.use("/", userRouter)
 connectDB()
   .then(() => {
     console.log("Database connection estabalish....");
-    app.listen(7777, () => {
+    server.listen(7777, () => {
       console.log("Server is running on port 7777");
     });
   })
